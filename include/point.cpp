@@ -1,15 +1,17 @@
 #include "point.h"
-#include<iostream>
 
 point::point()
 {
-	x = y = 0;
+	x = y = aWO = 0;
 }
 
 point::point(double x, double y)
 {
 	this->x = x;
 	this->y = y;
+	aWO = atan2(this->y, this->x);
+	if (aWO < 0)
+		aWO + 360;
 }
 
 point point::origin()
@@ -25,6 +27,11 @@ point point::basisX()
 point point::basisY()
 {
 	return point(0, 1);
+}
+
+point point::infinite()
+{
+	return point(std::numeric_limits<double>::infinity(), std::numeric_limits<double>::infinity());
 }
 
 point point::operator+(const point& p)
@@ -49,14 +56,21 @@ point point::operator-=(const point& p)
 	return *this;
 }
 
-double point::angleWithOrigin()
+double point::angleWithXRAD()
 {
-	return RAD2DEG*atan(this->y / this->x);
+	return aWO;
 }
 
-double point::slopeWithOrigin()
+double point::angleWithXDEG()
 {
-	return this->y / this->x;
+	return aWO * RAD2DEG;
+}
+
+double point::slopeWithX()
+{
+	if (this->x)
+		return this->y / this->x;
+	else return std::numeric_limits<double>::infinity();
 }
 
 double point::distanceFromOrigin()
@@ -100,9 +114,7 @@ std::ostream& operator<<(std::ostream& out, const point& p)
 point pointsAverage(const std::initializer_list<point>& il)
 {
 	point result;
-	for (auto a : il) {
+	for (auto a : il)
 		result += a;
-		std::cout << a;
-	}
 	return result/il.size();
 }
