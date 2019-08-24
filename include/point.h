@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include<sstream>
 #include <initializer_list>
 #include<cmath>
@@ -32,8 +32,8 @@ public:
 const point operator*(double d, const point& p);
 const point operator*(const point& p, double d);
 const point operator/(const point& p, double d);
-const point operator*=(const point& p, double d);
-const point operator/=(const point& p, double d);
+const point operator*=(point& p, double d);
+const point operator/=(point& p, double d);
 std::ostream& operator << (std::ostream& out, const point& p);
 
 
