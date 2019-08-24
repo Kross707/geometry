@@ -1,4 +1,5 @@
 #include "point.h"
+#include<iostream>
 
 point::point()
 {
@@ -38,12 +39,14 @@ point point::operator-(const point& p)
 
 point point::operator+=(const point& p)
 {
-	return *this + p;
+	*this = *this + p;
+	return *this;
 }
 
 point point::operator-=(const point& p)
 {
-	return *this - p;
+	*this = *this - p;
+	return *this;
 }
 
 double point::angleWithOrigin()
@@ -76,14 +79,16 @@ const point operator/(const point& p, double d)
 	return point(p.x / d, p.y / d);
 }
 
-const point operator*=(const point& p, double d)
+const point operator*=(point& p, double d)
 {
-	return d * p;
+	p = d * p;
+	return p;
 }
 
-const point operator/=(const point& p, double d)
+const point operator/=(point& p, double d)
 {
-	return p / d;
+	p = p / d;
+	return p;
 }
 
 std::ostream& operator<<(std::ostream& out, const point& p)
@@ -95,8 +100,9 @@ std::ostream& operator<<(std::ostream& out, const point& p)
 point pointsAverage(const std::initializer_list<point>& il)
 {
 	point result;
-	for (auto a : il)
+	for (auto a : il) {
 		result += a;
-
+		std::cout << a;
+	}
 	return result/il.size();
 }
