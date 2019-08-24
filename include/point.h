@@ -7,26 +7,29 @@ const double PI = 3.1415926535897932384626433832;
 const double DEG2RAD = 0.0174532925199432957692369076;
 const double RAD2DEG = 57.295779513082320876798154814;
 
+
 class point
 {
 public:
-	double x, y;
+	double x, y, aWO;
+
 	point();
-	point(double, double);
+	point(double x, double y);
 
 	static point origin();
 	static point basisX();
 	static point basisY();
+	static point infinite();
 
 	point operator +(const point& p);
 	point operator -(const point& p);
 	point operator +=(const point& p);
 	point operator -=(const point& p);
 
-	double angleWithOrigin();
-	double slopeWithOrigin();
+	double angleWithXDEG();
+	double angleWithXRAD();
+	double slopeWithX();
 	double distanceFromOrigin();
-
 };
 
 const point operator*(double d, const point& p);
